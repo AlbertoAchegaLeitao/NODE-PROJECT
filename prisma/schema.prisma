@@ -1,0 +1,83 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  fullName  String   @db.VarChar(255)
+  deleted   Boolean  @default(false)
+}
+
+model Client {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String    @db.VarChar(255)
+  phone     String    @db.VarChar(255)
+  email     String?   @db.VarChar(255)
+  address   String?   @db.VarChar(255)
+  deleted   Boolean   @default(false)
+  vehicles  Vehicle[]
+  bills     Bill[]
+}
+
+model Employee {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @db.VarChar(255)
+  phone     String   @db.VarChar(255)
+  email     String   @db.VarChar(255)
+  address   String   @db.VarChar(255)
+  deleted   Boolean  @default(false)
+  bills     Bill[]
+}
+
+model Item {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @db.VarChar(255)
+  stock     String   @db.VarChar(255)
+  price     Float
+  deleted   Boolean  @default(false)
+  bills     Bill[]
+}
+
+model Vehicle {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  mileage       String   @db.VarChar(255)
+  license_plate String   @unique @db.VarChar(255)
+  brand         String   @db.VarChar(255)
+  model         String   @db.VarChar(255)
+  color         String   @db.VarChar(255)
+  deleted       Boolean  @default(false)
+  client        Client   @relation(fields: [clientId], references: [id])
+  clientId      String
+  bills         Bill[]
+}
+
+model Bill {
+  id          String     @id @default(uuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  description String     @db.VarChar(255)
+  date        String
+  amount      Float
+  deleted     Boolean    @default(false)
+  vehicle     Vehicle[]
+  items        Item[]
+  client      Client[]
+  employee    Employee[]
+}
