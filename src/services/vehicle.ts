@@ -1,11 +1,4 @@
-import {
-  PrismaClient,
-  Client,
-  Employee,
-  Vehicle,
-  Bill,
-  Item,
-} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 interface addVehicleDto {
   license_plate: string;

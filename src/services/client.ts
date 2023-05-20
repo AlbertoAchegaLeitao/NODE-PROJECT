@@ -1,11 +1,4 @@
-import {
-  PrismaClient,
-  Client,
-  Employee,
-  Vehicle,
-  Bill,
-  Item,
-} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 interface addClientDto {
   name: string;
@@ -56,7 +49,7 @@ const searchClientName = (data: searchClientNameDto) =>
       deleted: false,
     },
     include: {
-      vehicles: true, // Include the related vehicles
+      vehicles: true,
       bills: true,
     },
   });

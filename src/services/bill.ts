@@ -1,11 +1,4 @@
-import {
-  PrismaClient,
-  Client,
-  Employee,
-  Vehicle,
-  Bill,
-  Item,
-} from "@prisma/client";
+import { PrismaClient, Client, Employee, Vehicle } from "@prisma/client";
 
 interface addBillDto {
   description: string;
